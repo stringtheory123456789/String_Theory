@@ -97,9 +97,9 @@ export default function App() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const isMobile = useMediaQuery('(max-width:600px)');
     const markerRefs = useRef({});
-    const [mapCenter, setMapCenter] = useState([22.955, 88.4145]);
-    const [mapprevCenter, setMapprevCenter] = useState([22.955, 88.4145]);
-    const [mapZoom, setMapZoom] = useState(14);
+    const [mapCenter, setMapCenter] = useState([22.9647105, 88.5250003]);
+    const [mapprevCenter, setMapprevCenter] = useState([22.5826, 88.3739]);
+    const [mapZoom, setMapZoom] = useState(13);
     const [darkstore, setDarkstore] = useState("kalyani");
     const [userlocation, setUserlocation] = useState(null);
 

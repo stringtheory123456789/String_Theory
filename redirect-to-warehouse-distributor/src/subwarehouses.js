@@ -74,16 +74,16 @@ export const subWarehouses = {
     KALZ23: [
         {
             name: 'KALZ23 Sub-Warehouse A',
-            lat: 22.9750,
-            lng: 88.4345,
+            lat: 22.9605,
+            lng: 88.5674,
             rating: 4.0,
             total_profit: "₹14,25,000",
             total_distributors: 140,
             additional_locs: [
-                { lat: 22.9760, lng: 88.4355, distributor_name: 'Suresh Agarwal' },
-                { lat: 22.9740, lng: 88.4335, distributor_name: "SOS Children's Village" },
-                { lat: 22.9760, lng: 88.4335, distributor_name: 'Anjali Mehra' },
-                { lat: 22.9740, lng: 88.4355, distributor_name: 'Keshav Sewa' },
+                { lat: 22.9650, lng: 88.5774, distributor_name: 'Suresh Agarwal' },
+                { lat: 22.9705, lng: 88.5674, distributor_name: "SOS Children's Village" },
+                { lat: 22.9680, lng: 88.5604, distributor_name: 'Anjali Mehra' },
+                { lat: 22.9605, lng: 88.5654, distributor_name: 'Keshav Sewa' },
             ]
         },
         {
@@ -94,52 +94,52 @@ export const subWarehouses = {
             total_profit: "₹11,00,000",
             total_distributors: 110,
             additional_locs: [
-                { lat: 22.9660, lng: 88.4255, distributor_name: 'Vijay Yadav' },
-                { lat: 22.9640, lng: 88.4235, distributor_name: 'Vikas India' },
-                { lat: 22.9660, lng: 88.4235, distributor_name: 'Rita Kumari' },
-                { lat: 22.9640, lng: 88.4255, distributor_name: 'Rural Development Foundation' },
+                { lat: 22.9620, lng: 88.4226, distributor_name: 'Vijay Yadav' },
+                { lat: 22.9640, lng: 88.4290, distributor_name: 'Vikas India' },
+                { lat: 22.9619, lng: 88.4254, distributor_name: 'Rita Kumari' },
+                { lat: 22.9690, lng: 88.4272, distributor_name: 'Rural Development Foundation' },
             ]
         },
         {
             name: 'KALZ23 Sub-Warehouse C',
-            lat: 22.9550,
-            lng: 88.4145,
+            lat: 22.9554,
+            lng: 88.4961,
             rating: 4.3,
             total_profit: "₹19,50,000",
             total_distributors: 170,
             additional_locs: [
-                { lat: 22.9560, lng: 88.4155, distributor_name: 'Raj Kumar' },
-                { lat: 22.9540, lng: 88.4135, distributor_name: 'Gaurav Foundation' },
-                { lat: 22.9560, lng: 88.4135, distributor_name: 'Sunita Gupta' },
-                { lat: 22.9540, lng: 88.4155, distributor_name: 'HelpAge India' },
+                { lat: 22.9494, lng: 88.4806, distributor_name: 'Raj Kumar' },
+                { lat: 22.9594, lng: 88.4923, distributor_name: 'Gaurav Foundation' },
+                { lat: 22.9548, lng: 88.4985, distributor_name: 'Sunita Gupta' },
+                { lat: 22.9515, lng: 88.4816, distributor_name: 'HelpAge India' },
             ]
         },
         {
             name: 'KALZ23 Sub-Warehouse D',
-            lat: 22.9450,
-            lng: 88.4045,
+            lat: 22.9937,
+            lng: 88.5464,
             rating: 4.1,
             total_profit: "₹12,00,000",
             total_distributors: 135,
             additional_locs: [
-                { lat: 22.9460, lng: 88.4055, distributor_name: 'Pooja Singh' },
-                { lat: 22.9440, lng: 88.4035, distributor_name: 'Sankalp Foundation' },
-                { lat: 22.9460, lng: 88.4035, distributor_name: 'Manoj Patel' },
-                { lat: 22.9440, lng: 88.4055, distributor_name: 'Nirmaan' },
+                { lat: 22.9903, lng: 88.5450, distributor_name: 'Pooja Singh' },
+                { lat: 22.9937, lng: 88.5400, distributor_name: 'Sankalp Foundation' },
+                { lat: 22.9960, lng: 88.5491, distributor_name: 'Manoj Patel' },
+                { lat: 22.9961, lng: 88.5424, distributor_name: 'Nirmaan' },
             ]
         },
         {
             name: 'KALZ23 Sub-Warehouse E',
-            lat: 22.9350,
-            lng: 88.3945,
+            lat: 22.9400,
+            lng: 88.5552,
             rating: 3.4,
             total_profit: "₹13,50,000",
             total_distributors: 145,
             additional_locs: [
-                { lat: 22.9360, lng: 88.3955, distributor_name: 'Suman Agarwal' },
-                { lat: 22.9340, lng: 88.3935, distributor_name: 'Bal Vikas' },
-                { lat: 22.9360, lng: 88.3935, distributor_name: 'Aarti Verma' },
-                { lat: 22.9340, lng: 88.3955, distributor_name: 'Child Rights and You (CRY)' },
+                { lat: 22.9410, lng: 88.5512, distributor_name: 'Suman Agarwal' },
+                { lat: 22.9390, lng: 88.5533, distributor_name: 'Bal Vikas' },
+                { lat: 22.9430, lng: 88.5570, distributor_name: 'Aarti Verma' },
+                { lat: 22.9430, lng: 88.5550, distributor_name: 'Child Rights and You (CRY)' },
             ]
         }
     ],
