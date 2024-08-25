@@ -1,0 +1,53 @@
+<Image
+          style={styles.albumCover}
+          source={{ uri: currentTrack.imageSource }}
+        />
+        <Text style={styles.title}>{currentTrack.title}</Text>
+        <Text style={styles.author}>{currentTrack.author}</Text>
+
+        <Text style={styles.durationText}>
+          {`${positionMinutes}:${positionSeconds < 10 ? '0' : ''}${positionSeconds}`} / {`${durationMinutes}:${durationSeconds}`}
+        </Text>
+
+        {/* Progress bar */}
+        <View style={styles.progressBar}>
+          <View style={[styles.progressIndicator, { width: `${progress}%` }]} />
+        </View>
+
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.control}
+            onPress={() => this.skipToNextTrack()}
+          >
+            <FontAwesome name="random" size={30} color="#333333" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.control}
+            onPress={() => this.skipToPreviousTrack()}
+          >
+            <FontAwesome name="step-backward" size={40} color="#333333" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.playPauseButton}
+            onPress={() => this.handlePlayPause()}
+          >
+            {isPlaying ? (
+              <Ionicons name="ios-pause" size={58} color="#333333" />
+            ) : (
+              <Ionicons name="ios-play-circle" size={58} color="#333333" />
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.control}
+            onPress={() => this.skipToNextTrack()}
+          >
+            <FontAwesome name="step-forward" size={40} color="#333333" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.control}
+            onPress={() => this.skipToNextTrack()}
+          >
+            <FontAwesome name="refresh" size={30} color="#333333" />
+          </TouchableOpacity>
+        </View>
