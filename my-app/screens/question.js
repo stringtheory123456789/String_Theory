@@ -1,95 +1,110 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import Sentiment from 'sentiment';
-import { useNavigation } from '@react-navigation/native'; // Import the navigation hook
 
-const SentimentScreen = ({ username, result, depression }) => {
-  const [responses, setResponses] = useState(Array(5).fill(''));
-  const [sentimentScores, setSentimentScores] = useState([]);
-  const navigation = useNavigation(); // Initialize the navigation hook
+class SentimentScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userInput: '',
+      sentimentResult: '',
+    };
+    this.sentiment = new Sentiment();
+  }
 
-  const questions = [
-    'How do you feel today?',
-    'What did you enjoy most this week?',
-    'What are you looking forward to?',
-    'How would you describe your current mood?',
-    'What can improve your day?'
-  ];
+  handleInputChange = (text) => {
+    this.setState({ userInput: text });
+  };
 
-  const analyzeSentiment = () => {
-    const sentiment = new Sentiment();
-    const scores = responses.map((response) => sentiment.analyze(response).score);
-    setSentimentScores(scores);
-    
-    // Here you can calculate the result based on the sentiment scores
-    const calculatedResult = scores.reduce((acc, score) => acc + score, 0); // Example calculation
-    const depressionResult = calculatedResult < 0 ? 'High' : 'Low'; // Example logic
+  analyzeSentiment = () => {
+    const { userInput } = this.state;
+    const result = this.sentiment.analyze(userInput);
+    const sentimentScore = result.score;
 
-    // Navigate to the Dashboard screen with the calculated results
-    navigation.navigate('Dashboard', {
-      result: result,
-      username: username,
-      depression: depression,
+    let sentimentResult;
+
+    // if (sentimentScore <= -3) {
+    //   sentimentResult = 'Negative';
+    // } else if (sentimentScore < 0) {
+    //   sentimentResult = 'Somewhat Negative';
+    // } else if (sentimentScore === 0) {
+    //   sentimentResult = 'Neutral';
+    // } else {
+    //   sentimentResult = 'Positive';
+    // }
+    sentimentResult='Score has been calculated successffully'
+
+    this.setState({ sentimentResult }, () => {
+
+      Alert.alert('Sentiment Analysis Result', `Sentiment: ${sentimentResult}`, [
+        {
+          text: 'OK',
+          onPress: () => this.navigateToDashboard(sentimentResult),
+        },
+      ]);
     });
   };
 
-  const handleInputChange = (text, index) => {
-    const newResponses = [...responses];
-    newResponses[index] = text;
-    setResponses(newResponses);
+  navigateToDashboard = (sentimentResult) => {
+
+    const user = this.props.route.params.username;
+    const depression = this.props.route.params.depression;
+    const result = this.props.route.params.result;
+    const { navigation } = this.props;
+    navigation.navigate('Dashboard', { sentimentResult, username: user, depression: depression, result: result });
   };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sentiment Analysis</Text>
-      {questions.map((question, index) => (
-        <View key={index} style={styles.questionContainer}>
-          <Text style={styles.question}>{question}</Text>
-          <TextInput
-            style={styles.input}
-            value={responses[index]}
-            onChangeText={(text) => handleInputChange(text, index)}
-          />
-        </View>
-      ))}
-      <Button title="Analyze Sentiment" onPress={analyzeSentiment} />
-    </View>
-  );
-};
+  render() {
+    const { userInput } = this.state;
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Enter your text for Sentiment Analysis:</Text>
+        <TextInput
+          style={styles.input}
+          multiline
+          placeholder="Type your thoughts here..."
+          onChangeText={this.handleInputChange}
+          value={userInput}
+        />
+        <TouchableOpacity style={styles.button} onPress={this.analyzeSentiment}>
+          <Text style={styles.buttonText}>Analyze Sentiment</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#DAC4FF'
+    justifyContent: 'center',
+    backgroundColor: '#DAC4FF',
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    marginTop: 20
-  },
-  questionContainer: {
-    marginBottom: 15,
-  },
-  question: {
-    fontSize: 16,
-    marginBottom: 5,
+    fontSize: 18,
+    marginBottom: 10,
+    textAlign: 'center',
   },
   input: {
-    borderColor: '#ccc',
     borderWidth: 1,
-    padding: 10,
+    borderColor: 'lightgray',
     borderRadius: 5,
+    padding: 10,
+    fontSize: 16,
+    backgroundColor: 'white',
+    height: 100,
+    marginBottom: 20,
   },
-  results: {
-    marginTop: 20,
+  button: {
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
   },
-  resultsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  score: {
+  buttonText: {
+    color: 'white',
     fontSize: 16,
   },
 });

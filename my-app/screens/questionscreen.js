@@ -149,8 +149,7 @@ class QuestionScreen extends Component {
     console.log('Result:', result);
   
     this.props.navigation.navigate('Sentiment', {
-      result: result,username: user,depression: depressionResult,
-      
+      result: result,username: user,depression: depressionResult, result: result
     });
   };
   

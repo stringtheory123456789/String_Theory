@@ -1,435 +1,232 @@
+
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    TextInput,
-    ScrollView,
-    StyleSheet,
-    Image
-} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import {
-    useNavigation,
-    useRoute,
-} from '@react-navigation/native';
-function TherapyScreen() {
-    const route = useRoute();
-    const username = route.params.username;
-    const result = route.params.result;
-    const depression = route.params.depression;
-    const meditations = [
-        {
-            id: 1,
-            title: 'Morning Stress Relief',
-            description: 'Start your day with a calming meditation designed to reduce stress and bring a sense of peace.',
-            progress: 30,
-        },
-        {
-            id: 2,
-            title: 'Evening Relaxation for Stress Relief',
-            description: 'Wind down and relieve the day’s tension with this evening meditation focused on stress relief.',
-            progress: 45,
-        },
-        {
-            id: 3,
-            title: 'Breathing Techniques for Focus',
-            description: 'Sharpen your focus and enhance productivity with this guided breathing session.',
-            progress: 20,
-        },
-        {
-            id: 4,
-            title: 'Mindful Awareness',
-            description: 'Cultivate mindfulness and present-moment awareness to manage stress and anxiety effectively.',
-            progress: 40,
-        },
-        {
-            id: 5,
-            title: 'Deep Sleep Meditation',
-            description: 'Prepare your mind and body for restful sleep with this deep relaxation meditation.',
-            progress: 35,
-        },
-        {
-            id: 6,
-            title: 'Morning Motivation',
-            description: 'Kickstart your day with a motivational meditation designed to boost energy and positive thinking.',
-            progress: 50,
-        },
-        {
-            id: 7,
-            title: 'Anxiety Relief Breathing',
-            description: 'Ease anxiety with focused breathing exercises that bring calm and balance to your mind.',
-            progress: 25,
-        },
-        {
-            id: 8,
-            title: 'Evening Gratitude',
-            description: 'End your day with a meditation that fosters gratitude and positive reflections.',
-            progress: 30,
-        },
-        {
-            id: 9,
-            title: 'Body Scan for Relaxation',
-            description: 'Relax deeply as you tune into your body with this guided body scan meditation.',
-            progress: 20,
-        },
-        {
-            id: 10,
-            title: 'Energy Boost Visualization',
-            description: 'Visualize and harness your inner energy to feel rejuvenated and ready for the day.',
-            progress: 45,
-        },
-    ];
-    const [showAdditionalCard, setShowAdditionalCard] = useState(false);
-    function exploreCategory(category) {
-        alert('HI');
-    }
-    function playMeditation(title) {
-        alert('Meditate')
-    }
-    function handleSearch(text) {
-        setSearchText(text);
+import { View, Text, ScrollView, Button, StyleSheet, SafeAreaView } from 'react-native';
 
-        const filteredMeditations = initialMeditations.filter((meditation) =>
-            meditation.title.toLowerCase().includes(text.toLowerCase())
-        );
+const TherapyScreen = () => {
+  const [severity, setSeverity] = useState(null);
 
-        setMeditations(filteredMeditations);
-    }
-    function loadMore() {
-        setShowAdditionalCard(!showAdditionalCard);
-    }
-    const navigation = useNavigation();
+  const treatmentPlans = {
+    lessDepressed: {
+      title: 'Treatment Plan for Less Depressed Users',
+      sections: [
+        {
+          title: 'A. Psychotherapy',
+          content: `
+          1. Cognitive Behavioral Therapy (CBT):
+          - *Initial Assessment*: Conduct a thorough clinical interview to identify cognitive distortions and maladaptive thought patterns. Use psychological assessment tools like the Beck Depression Inventory (BDI-II) to quantify the severity of symptoms.
+          - *Weekly Sessions (12-16 weeks)*:
+            - *Session 1-2*: Psychoeducation about depression and CBT principles, focusing on the connection between thoughts, emotions, and behaviors.
+            - *Session 3-4*: Introduction to cognitive restructuring techniques to identify and challenge automatic negative thoughts.
+            - *Session 5-8*: Behavioral activation exercises to gradually increase engagement in pleasurable activities.
+            - *Session 9-12*: Explore core beliefs and schemas that contribute to negative thinking patterns.
+            - *Session 13-16*: Consolidation and relapse prevention strategies.
+          - *Homework*: Assign tasks like keeping a thought diary, engaging in pleasurable activities, and practicing cognitive and behavioral techniques outside of sessions.
+          `,
+        },
+        {
+          title: 'B. Lifestyle Modifications',
+          content: `
+          1. Exercise:
+          - Aim for 30-60 minutes of moderate-intensity aerobic exercise (e.g., brisk walking, swimming) at least 5 days per week.
+          - Incorporate strength training exercises at least twice a week to improve overall physical health and boost mood.
+          - Emphasize the enjoyment of activities to enhance adherence and motivation.
+
+          2. Sleep Hygiene:
+          - Maintain a consistent sleep-wake schedule, aiming for 7-9 hours of quality sleep each night.
+          - Create a calming bedtime routine, including dimming lights, reading, or listening to soothing music.
+          - Limit screen time before bed to avoid blue light exposure.
+
+          3. Diet and Nutrition:
+          - Encourage a balanced diet rich in whole foods, fruits, vegetables, and lean proteins.
+          - Reduce intake of sugar and processed foods, which can exacerbate mood swings.
+          - Stay hydrated by drinking at least 8 glasses of water per day.
+          `,
+        },
+        {
+          title: 'C. Mindfulness and Relaxation Techniques',
+          content: `
+          1. Mindfulness-Based Cognitive Therapy (MBCT):
+          - Encourage daily mindfulness meditation practice of 10-20 minutes, focusing on present-moment awareness.
+          - Introduce techniques such as body scan meditation and mindful walking to increase engagement with the present moment.
+
+          2. Progressive Muscle Relaxation (PMR):
+          - Teach users to perform a daily 10-15 minute PMR routine, systematically tensing and relaxing different muscle groups.
+          - Incorporate deep breathing exercises to enhance relaxation.
+          `,
+        },
+        {
+          title: 'D. Regular Monitoring and Follow-Up',
+          content: `
+          1. Monthly Check-ins:
+          - Schedule follow-up therapy sessions every month to assess progress and address challenges.
+          - Use mood tracking logs where users record their daily mood on a scale of 1-10 along with notes on significant events or stressors.
+
+          2. Feedback and Adjustments:
+          - Provide regular feedback to the user about their progress, discussing both positive changes and areas needing attention.
+          - Utilize self-assessment quizzes periodically to help users reflect on their emotional journey and progress in treatment.
+          `,
+        },
+      ],
+    },
+    depressed: {
+      title: 'Treatment Plan for Depressed Users',
+      sections: [
+        {
+          title: 'A. Psychotherapy',
+          content: `
+          1. Cognitive Behavioral Therapy (CBT):
+          - *Session Structure (16-20 weeks)*:
+            - *Initial Sessions*: Conduct psychoeducation about depression and introduce thought records.
+            - *Mid-Treatment*: Focus on cognitive restructuring to challenge negative thoughts and behavioral activation to increase engagement in rewarding activities.
+            - *Final Sessions*: Emphasize relapse prevention strategies and consolidate gains.
+          - *Techniques*:
+            - *Thought Records*: Users track their automatic negative thoughts, identify cognitive distortions, and challenge them with balanced thoughts.
+            - *Behavioral Experiments*: Encourage users to test the validity of their negative beliefs through real-life experiments to gather evidence against their pessimistic views.
+            - *Pleasure and Mastery*: Help users rate activities based on pleasure and mastery to re-engage with life meaningfully.
+          `,
+        },
+        {
+          title: 'B. Medication',
+          content: `
+          1. Antidepressants:
+          - *Initial Prescription*: Start with SSRIs (e.g., Sertraline, Fluoxetine) for their favorable side effect profile. Consider SNRIs (e.g., Venlafaxine) if symptoms include fatigue or pain.
+          - *Monitoring and Adjustment*:
+            - Schedule follow-up appointments every 2-4 weeks to assess response and side effects. Adjust dosage as needed.
+            - Monitor for side effects like nausea, insomnia, and sexual dysfunction, adjusting the treatment plan accordingly.
+          `,
+        },
+        {
+          title: 'C. Lifestyle Modifications',
+          content: `
+          1. Exercise:
+          - Encourage users to participate in structured exercise programs, engaging in 45 minutes of moderate-intensity exercise at least 5 times a week.
+          - Suggest group activities to increase social interaction and motivation.
+
+          2. Sleep Hygiene:
+          - Emphasize the importance of maintaining a consistent sleep schedule. Consider referring users to sleep specialists if they experience insomnia.
+          - Encourage the use of sleep diaries to track patterns and identify factors affecting sleep quality.
+          `,
+        },
+      ],
+    },
+    veryDepressed: {
+      title: 'Treatment Plan for Very Depressed Users',
+      sections: [
+        {
+          title: 'A. Intensive Psychotherapy',
+          content: `
+          1. Cognitive Behavioral Therapy (CBT) and Dialectical Behavior Therapy (DBT):
+          - *Weekly In-Depth Sessions*: Focus on cognitive restructuring, emotional regulation, and distress tolerance.
+          - *Skills Training*: Teach distress tolerance and interpersonal effectiveness skills to manage emotional crises.
+          - *Homework*: Assign skills practice for users to integrate into daily life.
+
+          2. Support Groups:
+          - Encourage participation in group therapy or support groups to reduce isolation and provide community support.
+          - Facilitate discussions on shared experiences, coping strategies, and emotional processing.
+          `,
+        },
+        {
+          title: 'B. Medication Management',
+          content: `
+          1. Antidepressants:
+          - *Initial Prescription*: Start with SSRIs/SNRIs; consider augmentation with mood stabilizers or atypical antipsychotics if necessary.
+          - *Close Monitoring*: Schedule weekly follow-ups for adherence and side effect assessments, adjusting treatment as needed.
+          `,
+        },
+        {
+          title: 'C. Crisis Intervention and Safety Planning',
+          content: `
+          1. 24/7 Support:
+          - Provide users with access to crisis hotlines and emergency services for immediate support.
+          - Create a safety plan outlining warning signs, coping strategies, and emergency contacts.
+
+          2. Safety Planning:
+          - Work with users to develop personalized safety plans, identifying triggers and strategies to manage crises effectively.
+          - Discuss coping strategies that can be employed during moments of distress.
+          `,
+        },
+      ],
+    },
+  };
+
+  const renderTreatmentPlan = () => {
+    if (!severity) return null;
+
+    const { title, sections } = treatmentPlans[severity];
+
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() =>
-                    navigation.navigate('Dashboard', {
-                        username: username,
-                        result: result,
-                        depression: depression,
-                    })
-
-                }>
-                    <FontAwesome name="arrow-left" size={27} color="white" />
-                </TouchableOpacity>
-                <Text style={styles.logo}>SERENIOS</Text>
-                <View style={styles.userInfo}>
-                    <TouchableOpacity>
-                        <Image
-
-                            source={require('../assets/logo.png')}
-
-                            style={styles.topLeftIconImage}
-                        />
-                    </TouchableOpacity>
-                </View>
+      <View style={styles.planContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <ScrollView>
+          {sections.map((section, index) => (
+            <View key={index} style={styles.section}>
+              <Text style={styles.sectionTitle}>{section.title}</Text>
+              <Text style={styles.content}>{section.content}</Text>
             </View>
-
-            <View style={styles.searchContainer}>
-                <TextInput
-                    placeholder="Search meditations..."
-                    style={styles.searchInput}
-                />
-                <TouchableOpacity style={styles.searchButton}>
-                    <Text style={styles.searchButtonText}>Search</Text>
-                </TouchableOpacity>
-            </View>
-            <ScrollView
-
-                style={styles.categoryContainer}
-            >
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    style={styles.meditationContainer}
-                >
-                    {meditations.map((meditation) => (
-                        <TouchableOpacity
-                            key={meditation.id}
-                            style={styles.meditationCard}
-                        >
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardTitle}>{meditation.title}</Text>
-                                <Text style={styles.cardDescription}>
-                                    {meditation.description}
-                                </Text>
-                                <View style={styles.progressBar}>
-                                    <View
-                                        style={[
-                                            styles.progress,
-                                            { width: `${meditation.progress}%` },
-                                        ]}
-                                    />
-                                </View>
-                                <TouchableOpacity
-                                    style={styles.playButton}
-                                    onPress={() => playMeditation(meditation.title)}
-                                >
-                                    <Text style={styles.playButtonText}>Play</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={styles.actionButton}
-                                    onPress={() => addToList(meditation.title)}
-                                >
-                                    <Text style={styles.actionButtonText}></Text>
-                                </TouchableOpacity>
-                            </View>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
-
-                { }
-
-                <TouchableOpacity
-                    style={styles.categoryCard}
-                    onPress={() => exploreCategory('Stress Relief')}
-                >
-                    <View style={styles.cardContent}>
-                        <Text style={styles.cardTitle}>Stress Relief</Text>
-                        <Text style={styles.cardDescription}>
-                            Calm your mind and relax your body with these soothing meditations.
-                        </Text>
-                        <Text style={styles.exploreText}>Explore &rarr;</Text>
-                    </View>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity
-                    style={styles.categoryCard}
-                    onPress={() => exploreCategory('Stress Relief')}
-                >
-                    <View style={styles.cardContent}>
-                        <Text style={styles.cardTitle}>Focus & Productivity</Text>
-                        <Text style={styles.cardDescription}>
-                            Enhance your focus and productivity with these guided sessions.
-                        </Text>
-                        <Text style={styles.exploreText}>Explore &rarr;</Text>
-                    </View>
-                </TouchableOpacity>
-
-
-                {showAdditionalCard && (
-                    <TouchableOpacity
-                        style={styles.categoryCard}
-                        onPress={() => exploreCategory('Stress Relief')}
-                    >
-                        <View style={styles.cardContent}>
-                            <Text style={styles.cardTitle}>Mindful Living</Text>
-                            <Text style={styles.cardDescription}>
-                                Incorporate mindfulness into your daily life with these sessions.
-                            </Text>
-                            <Text style={styles.exploreText}>Explore &rarr;</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                )}
-
-                { }
-                <TouchableOpacity
-                    style={styles.loadMoreButton}
-                    onPress={loadMore}
-                >
-                    <Text style={styles.loadMoreButtonText}>
-                        {showAdditionalCard ? 'Load Less' : 'Load More'}
-                    </Text>
-                </TouchableOpacity>
-            </ScrollView>
-
-            {
-            }
-
-        </View>
+          ))}
+        </ScrollView>
+      </View>
     );
-}
+  };
+
+  return (
+    
+    <View style={styles.container}>
+      <Text style={styles.header}>Mental Health Therapy Plans</Text>
+      <View style={styles.container123}>
+      <Button title="Less Depressed" onPress={() => setSeverity('lessDepressed')} />
+      <Button title="Depressed" onPress={() => setSeverity('depressed')} />
+      <Button title="Very Depressed" onPress={() => setSeverity('veryDepressed')} />
+      </View>
+      {renderTreatmentPlan()}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#DAC4FF',
-
-    },
-    header: {
-        marginTop: 30,
-        backgroundColor: '#8B4513',
-        padding: 16,
+  container: {
+    flex: 1,
+    padding: 4,
+    backgroundColor: '#f5f5f5',
+    
+  },
+    container123: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        color: 'black'
+        marginBottom: 20,
     },
-    logo: {
-        fontSize: 32,
-        color: 'white',
-        fontWeight: 'bold',
-    },
-    userInfo: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderColor: 'black'
-    },
-    topLeftIconImage:
-    {
-        width: 40,
-        height: 40,
-        borderRadius: 15,
-        borderColor: 'black'
-    },
-    userName: {
-        color: '#ecf0f1',
-        fontSize: 20,
-    },
-    searchContainer: {
-        marginTop: 20,
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-        margin: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    searchInput: {
-        flex: 3,
-        fontSize: 18,
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        borderRadius: 5,
-    },
-    searchButton: {
-        flex: 1,
-        backgroundColor: '#4dc0b5',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderTopRightRadius: 5,
-        borderBottomRightRadius: 5,
-        marginRight: 2,
-    },
-    searchButtonText: {
-        color: '#ffffff',
-        fontSize: 18,
-    },
-    meditationContainer: {
-        paddingVertical: 8,
-    },
-    meditationCard: {
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-        marginRight: 16,
-        width: 300,
-        overflow: 'hidden',
-    },
-    cardContent: {
-        padding: 16,
-    },
-    cardTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 8,
-        color: '#2c3e50',
-    },
-    cardDescription: {
-        fontSize: 16,
-        color: '#555555',
-        marginBottom: 8,
-    },
-    progressBar: {
-        backgroundColor: '#e0e0e0',
-        height: 10,
-        marginBottom: 8,
-        borderRadius: 5,
-    },
-    progress: {
-        backgroundColor: '#4dc0b5',
-        height: '100%',
-    },
-    playButton: {
-        marginTop: 10,
-        backgroundColor: 'transparent',
-        borderWidth: 2,
-        borderColor: '#4dc0b5',
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 30,
-        fontSize: 18,
-        color: '#4dc0b5',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 8,
-    },
-    playButtonText: {
-        color: '#4dc0b5',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    actionButton: {
-        fontSize: 16,
-        color: '#555555',
-        marginRight: 8,
-    },
-    actionButtonText: {
-        fontSize: 16,
-        color: '#555555',
-    },
-    loadMoreButton: {
-        marginTop: 15,
-        backgroundColor: '#4dc0b5',
-        borderWidth: 2,
-        borderColor: '#4dc0b5',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 30,
-        fontSize: 20,
-        color: 'white',
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        marginBottom: 16,
-    },
-    loadMoreButtonText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    categoryContainer: {
-        paddingHorizontal: 16,
-        marginBottom: 16,
-
-    },
-    categoryCard: {
-        marginTop: 15,
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-        marginRight: 16,
-        width: '100%',
-        justifyContent: 'center'
-    },
-    exploreText: {
-        backgroundColor: '#4dc0b5',
-        color: '#ffffff',
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 5,
-        textAlign: 'center',
-        fontSize: 16,
-    },
-    footer: {
-        backgroundColor: '#34495e',
-        color: '#ecf0f1',
-        textAlign: 'center',
-        padding: 16,
-    },
-    footerNav: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    footerLink: {
-        marginHorizontal: 8,
-    },
-    footerLinkText: {
-        fontSize: 18,
-        color: '#ecf0f1',
-    },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 40,
+    marginTop: 80,
+    alignSelf: 'center',
+    textAlign: 'center'
+  },
+  planContainer: {
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    elevation: 3,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  section: {
+    marginBottom: 15,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  content: {
+    fontSize: 16,
+    lineHeight: 22,
+  },
 });
 
 export default TherapyScreen;

@@ -12,7 +12,7 @@ import HomeScreen from './screens/journal';
 import QuestionScreen from './screens/questionscreen';
 import MusicScreen from './screens/music';
 import TherapyScreen from './screens/therapy';
-import MeditationPage from './screens/therapy';
+import MeditationPage from "./screens/meditation"
 import SentimentScreen from './screens/question';
 
 console.disableYellowBox = true;

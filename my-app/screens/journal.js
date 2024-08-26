@@ -1,5 +1,6 @@
 
 import React, { Component, useState } from 'react';
+import WebView from 'react-native-webview';
 import {
   View,
   StyleSheet,
@@ -19,7 +20,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+// import { WebView } from 'react-native-webview';
+// import { WebView } from 'react-native-webview'
 const { width: screenWidth } = Dimensions.get('window');
+
 LogBox.ignoreAllLogs();
 
 console.disableYellowBox = true;
@@ -101,6 +105,22 @@ export default class App extends Component {
             ),
           }}
         />
+        <Tab.Screen
+          name="Chat"
+          component={() => <ChatScreen username={this.props.route.params.username} result={this.props.route.params.result} depression={this.props.route.params.depression} />}
+
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <Image
+                source={{
+                  uri: `${require('../assets/bubble-chat.png')}`,
+                }}
+                style={{ width: size, height: size, tintColor: color }}
+              />
+            ),
+          }}
+        />
         { }
       </Tab.Navigator>
     );
@@ -142,7 +162,7 @@ const HomeScreen = ({ username, result, depression }) => {
         <Text style={styles.reel}>You are under {depression}</Text>
 
 
-        
+
 
         {cards.map((card) => (
           <View key={card.id} style={styles.card}>
@@ -286,11 +306,32 @@ const ProfileScreen = ({ username }) => {
   )
 };
 
+const ChatScreen = ({ username }) => {
+
+  return (
+    <WebView source={{ uri: "https://prernaprojectv10-rwitam-r-devs-projects.vercel.app/" }}
+    scalesPageToFit={true}
+    javaScriptEnabled={true}
+    domStorageEnabled={true}
+    />
+  );
+};
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DAC4FF',
+    backgroundColor: '#fff',
     padding: 16,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  link: {
+    color: 'blue',
+    textDecorationLine: 'underline',
   },
   meditationContainer: {
     paddingVertical: 8,
@@ -415,7 +456,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DAC4FF',
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffd2d2',
     marginBottom: 20,
     padding: 10,
     borderRadius: 8,
@@ -439,6 +480,8 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 18,
     textAlign: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center'
   },
   headings: {
     marginTop: 40,
